@@ -11,10 +11,13 @@ const courses = require("../model/Course.js");
 const distributions = require("../model/Distribution.js");
 const users = require("../model/User.js");
 
-const express = require("express");
-const router = express.Router();
+import Express from "express";
+const router = Express.Router();
 
-router.get("/api/addSamples", (req, res) => {
+// define interface for some type of object
+// export interface Course {}
+
+router.get("/api/addSamples", (_req, res) => {
   addSampleUsers(users).catch((err) => errorHandler(res, 500, err));
   addSampleDistributions(distributions).catch((err) =>
     errorHandler(res, 500, err)
@@ -130,10 +133,10 @@ router.patch("/api/courses/changeStatus/:course_id", (req, res) => {
 //change course's distribution, need to provide distribution_ids in req body
 //!!!does not update credit!!! need to consider whether the user can change or not
 router.patch("/api/courses/changeDistribution/:course_id"),
-  (req, res) => {
-    const c_id = req.params.course_id;
-    const distribution_ids = req.body.distribution;
-    if (typeof distribution !== "array") {
+  (req: any, res: any) => {
+    const c_id: string = req.params.course_id;
+    const distribution_ids: string[] = req.body.distribution;
+    if (!distribution_ids) {
       errorHandler(res, 400, { message: "Invalid distribution." });
     } else {
       courses

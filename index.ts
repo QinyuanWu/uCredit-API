@@ -2,11 +2,11 @@ const db = require("./data/db.js");
 const cors = require("cors");
 const helmet = require("helmet"); //provide security enhancement
 const morgan = require("morgan"); //log http request history to terminal
-const express = require("express");
-const app = express();
-const courseRouter = require("./routes/course.js");
-const userRouter = require("./routes/user.js");
-const searchRouter = require("./routes/search.js");
+import Express from "express";
+const app = Express();
+const courseRouter = require("./routes/course");
+// const userRouter = require("./routes/user.js");
+// const searchRouter = require("./routes/search.js");
 const ssoRouter = require("./routes/sso.js");
 const port = process.env.PORT || 4567;
 
@@ -15,7 +15,7 @@ db.connect();
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(express.json());
+app.use(Express.json());
 app.use(courseRouter);
 app.use(ssoRouter);
 //app.use(userRouter);
