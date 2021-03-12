@@ -15,14 +15,28 @@ import Express from "express";
 const router = Express.Router();
 
 // define interface for some type of object
-// export interface Course {}
+export interface Course {
+  title: string;
+  term: "fall" | "spring" | "summer" | "winter";
+  year: "freshman" | "sophomore" | "junior" | "senior";
+  number: string;
+  department: string;
+  tags: string[];
+  area: string;
+  credits: number;
+  wi: boolean;
+  taken: boolean;
+  ratings: any[];
+  distribution_ids: string[];
+  user_id: string;
+}
 
-router.get("/api/addSamples", (_req, res) => {
-  addSampleUsers(users).catch((err) => errorHandler(res, 500, err));
-  addSampleDistributions(distributions).catch((err) =>
+router.get("/api/addSamples", (_req: any, res: any) => {
+  addSampleUsers(users).catch((err: any) => errorHandler(res, 500, err));
+  addSampleDistributions(distributions).catch((err: any) =>
     errorHandler(res, 500, err)
   );
-  addSampleCourses(courses).catch((err) => errorHandler(res, 500, err));
+  addSampleCourses(courses).catch((err: any) => errorHandler(res, 500, err));
 });
 
 //return all courses of the user
@@ -145,7 +159,7 @@ router.patch("/api/courses/changeDistribution/:course_id"),
           { distribution_ids },
           { new: true, runValidators: true }
         )
-        .then((course) => returnData(course, res))
+        .then((course: Course) => returnData(course, res))
         .catch((err) => errorHandler(res, 404, err));
     }
   };
